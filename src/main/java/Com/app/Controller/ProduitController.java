@@ -29,18 +29,29 @@ public class ProduitController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = request.getParameter("id") != null && !request.getParameter("id").isEmpty()
+                ? Integer.parseInt(request.getParameter("id"))
+                : 0;
+
         String nom = request.getParameter("nom");
         String description = request.getParameter("description");
         BigDecimal prix = new BigDecimal(request.getParameter("prix"));
         String image = request.getParameter("image");
 
         Produit produit = new Produit();
+        produit.setId(id);
         produit.setNom(nom);
         produit.setDescription(description);
         produit.setPrix(prix);
         produit.setImage(image);
 
-        produitDAO.ajouterProduit(produit);
-        response.sendRedirect("produits"); // Rediriger vers la liste des produits après l'ajout
+        if (id > 0) {
+            produitDAO.mettreAJourProduit(produit);
+        } else {
+            produitDAO.ajouterProduit(produit);
+        }
+
+        response.sendRedirect("produits");
     }
 }
+

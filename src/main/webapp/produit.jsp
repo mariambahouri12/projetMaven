@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, Com.app.model.Produit" %>
+<%@ page import="java.util.List, Com.app.metier.Produit" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,7 @@
 
     <table border="1">
         <tr>
+            <th>ID</th>
             <th>Image</th>
             <th>Nom</th>
             <th>Description</th>
@@ -24,6 +25,7 @@
                 for (Produit produit : produits) {
         %>
         <tr>
+            <td><%= produit.getId() %></td>
             <td><img src="<%= produit.getImage() %>" width="100" alt="Image Produit"></td>
             <td><%= produit.getNom() %></td>
             <td><%= produit.getDescription() %></td>
@@ -33,7 +35,7 @@
                 }
             } else {
         %>
-        <tr><td colspan="4">Aucun produit disponible.</td></tr>
+        <tr><td colspan="5">Aucun produit disponible.</td></tr>
         <% } %>
     </table>
 </body>

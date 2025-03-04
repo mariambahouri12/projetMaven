@@ -8,6 +8,9 @@
     <h2>Ajouter un Produit</h2>
 
     <form action="produits" method="post">
+        <label>ID :</label>
+        <input type="number" name="id" required><br><br>
+
         <label>Nom :</label>
         <input type="text" name="nom" required><br><br>
 
@@ -20,10 +23,11 @@
         <label>URL de l'image :</label>
         <input type="text" name="image" required><br><br>
 
-        <button type="submit">Ajouter</button>
+        <button type="submit">Ajouter / Modifier</button>
     </form>
 
     <br>
     <a href="produits">Retour à la liste des produits</a>
 </body>
 </html>
+

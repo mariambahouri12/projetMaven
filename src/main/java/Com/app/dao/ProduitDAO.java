@@ -34,15 +34,34 @@ public class ProduitDAO {
     }
 
     public void ajouterProduit(Produit produit) {
-        String query = "INSERT INTO produits (nom, description, prix, image) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO produits (id,nom, description, prix, image) VALUES (?,?, ?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1,produit.getId());
+            stmt.setString(2, produit.getNom());
+            stmt.setString(3, produit.getDescription());
+            stmt.setBigDecimal(4, produit.getPrix());
+            stmt.setString(5, produit.getImage());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mettreAJourProduit(Produit produit) {
+        String query = "UPDATE produits SET nom = ?, description = ?, prix = ?, image = ? WHERE id = ?";
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = con.prepareStatement(query)) {
 
-            stmt.setString(1, produit.getNom());
-            stmt.setString(2, produit.getDescription());
-            stmt.setBigDecimal(3, produit.getPrix());
-            stmt.setString(4, produit.getImage());
+            stmt.setInt(1, produit.getId());
+            stmt.setString(2, produit.getNom());
+            stmt.setString(3, produit.getDescription());
+            stmt.setBigDecimal(4, produit.getPrix());
+            stmt.setString(5, produit.getImage());
+
 
             stmt.executeUpdate();
         } catch (SQLException e) {
